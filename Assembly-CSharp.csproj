@@ -62,17 +62,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AbstractBoss.cs" />
     <Compile Include="Assets\Scripts\Boss.cs" />
     <Compile Include="Assets\Scripts\BossZone.cs" />
+    <Compile Include="Assets\Scripts\BossZoneSmall.cs" />
     <Compile Include="Assets\Scripts\bullet.cs" />
     <Compile Include="Assets\Scripts\DirectionController.cs" />
+    <Compile Include="Assets\Scripts\EdekBoss.cs" />
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\menuScript.cs" />
     <Compile Include="Assets\Scripts\MovingPikes.cs" />
     <Compile Include="Assets\Scripts\MusicScript.cs" />
     <Compile Include="Assets\Scripts\PCH.cs" />
     <Compile Include="Assets\Scripts\PCHBullet.cs" />
     <Compile Include="Assets\Scripts\Pike.cs" />
+    <Compile Include="Assets\Scripts\platform1.cs" />
+    <Compile Include="Assets\Scripts\Platform2.cs" />
+    <Compile Include="Assets\Scripts\platformLast.cs" />
     <Compile Include="Assets\Scripts\RespawnScript.cs" />
     <Compile Include="Assets\Scripts\Sanya.cs" />
     <Compile Include="Assets\Scripts\SimpleMoving.cs" />

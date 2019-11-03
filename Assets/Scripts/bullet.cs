@@ -44,7 +44,7 @@ public class bullet : MonoBehaviour
 
         if (collision.tag.Equals("Boss"))
         {
-            collision.gameObject.GetComponent<Boss>().hp -= 75f;
+            collision.gameObject.GetComponent<AbstractBoss>().hp -= 75f;
         }
       
     }

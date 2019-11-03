@@ -16,6 +16,7 @@ public class Sanya : MonoBehaviour
     public Transform startSpawnPosition;
     public static Vector2? spawnPosition;
     [SerializeField] private Animator animator;
+    public bool GODMODE = false;
     // Start is called before the first frame update
 
 
@@ -30,7 +31,7 @@ public class Sanya : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         GameManager.isInBossRoom = false;
-
+        
     }
 
 
@@ -41,6 +42,8 @@ public class Sanya : MonoBehaviour
         // GameManager.GetInstance().spawnPosition = spawnPosition;
         rigidbody2d = GetComponent<Rigidbody2D>();
         rigidbody2d.velocity = Vector2.zero;
+        Jumpspeed = 30;
+        Debug.Log(Jumpspeed);
     }
 
     // Update is called once per frame
@@ -53,10 +56,7 @@ public class Sanya : MonoBehaviour
             Move();
             Shoot();
         }
-        if (rigidbody2d.velocity.y < 0)
-        {
-            Debug.Log(rigidbody2d.velocity.y);
-        }
+       
        
         animator.SetFloat("velocity.y", rigidbody2d.velocity.y);
     }
@@ -72,9 +72,13 @@ public class Sanya : MonoBehaviour
         }
         if (collision.tag.Equals("Danger") || collision.tag.Equals("PCH") || collision.tag.Equals("Boss"))
         {
+            if (!GODMODE)
+            {
+                Die();
+                GameManager.isPlayerDead = true;
+            }
             // transform.position = SpawnPosition.transform.position;
-            Die();
-            GameManager.isPlayerDead = true;
+          
         }
     }
 
@@ -125,6 +129,7 @@ public class Sanya : MonoBehaviour
     }
     void Die()
     {
+        //transform.position = GameManager.Spawn;
         //Debug.Log(spawnPosition);
 
         //// SceneManager.LoadScene(SceneManager.GetActiveScene().name);

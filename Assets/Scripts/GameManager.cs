@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public static bool beatLevel = false;
     public static bool isPlayerDead = false;
     private Sanya player;
-    private Boss boss;
+    private AbstractBoss boss;
     private float maxFillAmount;
     public Image hpImage;
 
@@ -25,9 +25,13 @@ public class GameManager : MonoBehaviour
     public AudioClip winClip, deathClip, backGroundClip;
     public Transform startSpawnPosition;
     public static Vector2? spawnPosition;
-
+    public int nextSceneIndex;
    
     private bool youddied = false;
+
+    public GameObject[] toDestroy;
+
+    public static Vector3 Spawn;
     private void Awake()
     {
         if (instance == null)
@@ -50,7 +54,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Sanya>();
-        boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
+       
+            boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<AbstractBoss>();
+        
+        
+        
         audio = GameObject.FindGameObjectWithTag("Background").GetComponent<AudioSource>();
         startSpawnPosition = GameObject.FindGameObjectWithTag("Respawn").GetComponent<Transform>();
         maxFillAmount = boss.hp;
@@ -61,6 +69,8 @@ public class GameManager : MonoBehaviour
         isPlayerDead = false;
         audio.clip = backGroundClip;
         audio.Play();
+
+        Debug.Log(maxFillAmount + " Is max hp");
     }
 
     // Update is called once per frame
@@ -70,6 +80,8 @@ public class GameManager : MonoBehaviour
         {
             hpImage.gameObject.SetActive(true);
             hpImage.fillAmount = boss.hp / maxFillAmount;
+
+            Debug.Log(maxFillAmount);
         }
         else
         {
@@ -96,6 +108,7 @@ public class GameManager : MonoBehaviour
             humanityAnimator.enabled = true;
            // audio.PlayOneShot(winClip);
             beatLevel = false;
+            Invoke("NextLevel",8f);
         }
         //if (isGameOver && Input.GetKeyDown("1"))
         //{
@@ -103,11 +116,7 @@ public class GameManager : MonoBehaviour
         //}
     }
 
-    //public void GameOver()
-    //{
-    //    infoText.text = "GAME OVER - PRESS 1 TO RESET ";
-    //    isGameOver = true;
-    //}
+    
 
     public void Respawn()
     {
@@ -117,12 +126,14 @@ public class GameManager : MonoBehaviour
         if (spawnPosition != null)
         {
           player.transform.position = spawnPosition.Value;
+            Spawn = spawnPosition.Value;
         }
         else
         {
           player.transform.position = startSpawnPosition.transform.position;
+            player.transform.position = startSpawnPosition.transform.position;
         }
-
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         isPlayerDead = false;
         Time.timeScale = 1;
@@ -132,5 +143,21 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-    
+    void NextLevel()
+    {
+       Debug.Log( SceneManager.sceneCountInBuildSettings + " available scenes");
+      //  DestroyAll();
+        SceneManager.LoadScene(nextSceneIndex);
+        player.transform.position = spawnPosition.Value;
+        player.Jumpspeed = 30;
+    }
+    void DestroyAll()
+    {
+        for(int i=0; i < toDestroy.Length; i++)
+        {
+           
+            SceneManager.MoveGameObjectToScene(toDestroy[i], SceneManager.GetSceneByBuildIndex(nextSceneIndex));
+           // Destroy(toDestroy[i]);
+        }
+    }
 }

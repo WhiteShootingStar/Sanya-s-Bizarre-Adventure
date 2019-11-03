@@ -6,6 +6,7 @@ public class PCHBullet : MonoBehaviour
 {
     public float speed;
     public Vector3 direction;
+    public float timeToDestroy = 3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,6 @@ public class PCHBullet : MonoBehaviour
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime,Space.Self);
 
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, timeToDestroy);
     }
 }
