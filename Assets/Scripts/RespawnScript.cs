@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class RespawnScript : MonoBehaviour
 {
-    void Awake()
-    {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+    //void Awake()
+    //{
+    //    GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
 
-        if (objs.Length > 1)
-        {
-            Destroy(gameObject);
-        }
+    //    if (objs.Length > 1)
+    //    {
+    //        Destroy(gameObject);
+    //    }
 
-        DontDestroyOnLoad(gameObject);
-    }
+    //    DontDestroyOnLoad(gameObject);
+    //}
 }

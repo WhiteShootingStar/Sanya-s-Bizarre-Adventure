@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
         else
         {
           player.transform.position = startSpawnPosition.transform.position;
-            player.transform.position = startSpawnPosition.transform.position;
+            Spawn = startSpawnPosition.transform.position;
         }
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
